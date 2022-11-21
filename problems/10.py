@@ -226,19 +226,20 @@ def problem10(n):
     Summation of primes
     https://projecteuler.net/problem=10
     '''
-    primes = []
+    sieve = [True]*(n)
+    sieve[0] = False
+    sieve[1] = False
     for i in range(2, n):
-        isPrime = True
-        for prime in primes:
-            if prime*prime>i:
-                break
-            if i%prime == 0:
-                isPrime = False
-                break
-        if isPrime:
-            primes.append(i)
-    # print(primes)
-    return sum(primes)
+        if i*i>n:
+            break
+        if sieve[i]:
+            for j in range(i*2,n,i):
+                sieve[j] = False
+    res = 0
+    for i, flag in enumerate(sieve):
+        if flag:
+            res += i
+    return res
 
 
 
